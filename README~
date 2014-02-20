@@ -1,1 +1,30 @@
-phasevoc~ is a phasevocoder extern for Pd by David Medine released under the GPL
+[phasevoc~] is a phasevocoder extern for Pd by David Medine released under the GPL
+
+building:
+---------
+Linux:
+Drop the phasevoc~ folder into Pd's extra folder and hit 
+
+> make
+
+in a terminal. You can also specify the include path (needed to find m_pd.h) by typing:
+
+> make LINUXINCLUDE=<full path to pd's src floder>
+
+where the full path is something like /home/dmedine/Software/pd-0.45-4/src 
+
+Mac:
+You will need to change the fourth line of the makefile from:
+
+current: pd_linux
+
+to:
+
+current: pd_darwin
+
+then, it's the same as for linux. The makefile uses the same variable LINUXINCLUDE for both linux and mac build options, so the same deal applies.
+
+installing:
+-----------
+You will also need to tell Pd where the extern is. If it is in the extra folder, you should be fine, 
+otherwise you will need to add the path to Pd's path list, or declare the path using the [declare] object with the -path flag.
