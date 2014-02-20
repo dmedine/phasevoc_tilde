@@ -1,0 +1,154 @@
+#N canvas 1 82 1144 682 10;
+#N canvas 9 51 450 300 creation 0;
+#X text 32 16 phasevoc~ takes the following creation arguments:;
+#X text 33 43 '-buffsize #' : this is the size \, in seconds \, of
+the input buffer \; default is 5 seconds;
+#X text 34 82 '-windowsize #' : this is the windowsize of the analysis
+\, in samples \, must be a power of 2 \; default is 1024;
+#X text 34 125 '-hopsize #' : hopsize \, in samples \, must divide
+evenly into windowsize value \, won't work if it is less than 64 \;
+default is 256;
+#X restore 270 742 pd creation arguments;
+#X floatatom 485 444 5 0 0 0 - - -, f 5;
+#X floatatom 557 498 5 0 0 0 - - -, f 5;
+#X msg 485 146 reinit;
+#X msg 489 21 pause;
+#X msg 489 67 unpause;
+#X obj 413 541 phasevoc~ -buffsize 5;
+#N canvas 59 50 450 300 arrays 0;
+#X obj 43 94 soundfiler;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array soundfile 2.56889e+07 float 2;
+#X coords 0 1 2.56889e+07 -1 200 140 1;
+#X restore 230 129 graph;
+#X obj 44 45 openpanel;
+#X obj 44 17 inlet;
+#X msg 43 73 read -resize -maxsize 2.7e+07 \$1 soundfile;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;
+#X restore 24 280 pd arrays;
+#X obj 390 681 output~;
+#X obj 106 308 tabplay~ soundfile;
+#X msg 106 263 0;
+#X obj 24 239 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 47 239 <-load in a soundfile to play;
+#X text 147 262 <-hit this to play the soundfile;
+#X text 603 496 <-this is a transposition value. the units are cents
+;
+#X text 435 739 <-check out some more options here;
+#X text 5 12 [phasevoc~] is pretty much the same as Miller Puckette's
+patched phasevocoder. See the help menu \, choose browser and look
+for 'I.07 Phasevocoder'. There is one important difference \, however
+\, and that is that this external can recieve live input (Miller's
+patch relies on pre-loaded soundfiles).;
+#X msg 117 286 stop;
+#X obj 205 346 adc~;
+#X obj 205 396 *~;
+#X msg 246 335 1 100;
+#X msg 263 357 0 100;
+#X text 297 335 <-go live;
+#X msg 592 23 phaselock 1;
+#X msg 592 70 phaselock 0;
+#X obj 315 525 r phasevoc;
+#X obj 592 92 s phasevoc;
+#X obj 592 44 s phasevoc;
+#X obj 485 167 s phasevoc;
+#X obj 489 88 s phasevoc;
+#X obj 490 42 s phasevoc;
+#X obj 246 380 line;
+#X obj 532 195 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 624 307 reinit;
+#X obj 624 329 s phasevoc;
+#X obj 413 651 *~ 1;
+#X obj 463 605 r ramp;
+#X obj 603 252 s ramp;
+#X obj 532 215 t b b;
+#X obj 507 359 s phasevoc;
+#X msg 507 338 unpause;
+#X obj 434 356 s ramp;
+#X text 4 104 [phasevoc~] has an input buffer which takes in audio
+in realtime. Because the dsp needs one frame of samples in order to
+do its thing \, there is a lag time of one frame. The two transformations
+that can happen are pirch shifting and time stretching. The downside
+of timestretching is that it is quite easy to run over audio in the
+input buffer. This won't cause a crash or anything \, but it can lead
+to unexpected results.;
+#X text 693 23 <--Some control messages that you can send to [phasevoc~]
+;
+#X obj 413 504 catch~ pv;
+#X obj 205 417 throw~ pv;
+#X obj 105 331 throw~ pv;
+#X obj 485 387 loadbang;
+#X msg 485 414 1;
+#X text 536 414 <-this is a time-stretching factor. it can recieve
++ or - values (which play through the buffer backwards). The default
+value is 1 (ie the time is stretched bythe identity factor;
+#X msg 540 478 0;
+#X msg 490 651 unpause;
+#X obj 490 672 s phasevoc;
+#X obj 532 236 delay 20;
+#X text 560 142 <-'reinit' does three things: 1 flushes the input buffer
+2 sets the read point to the 0th sample in the buffer and 3 hits the
+pause button. Sometimes an alternative configuration is preferred \,
+see below:;
+#X text 653 204 <-this setup is configured to reinitialize without
+pausing. all this ramping jazz is just to avoid artifacts when the
+reinit happens.;
+#X obj 5 454 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 5 508 table soundfile;
+#X obj 5 529 s phasevoc;
+#X text 23 451 <-once you've loaded up your sf \, you can load the
+samples directly into memory. this effectively makes [phasevoc~] behave
+just like Miller's phasevocoder patch with some added features;
+#X msg 402 227 \; pd dsp 1;
+#X obj 462 634 line~;
+#X msg 603 231 0 100;
+#X msg 434 334 1 100;
+#X obj 474 313 del 100;
+#X obj 532 290 t b b;
+#X connect 1 0 6 1;
+#X connect 2 0 6 2;
+#X connect 3 0 28 0;
+#X connect 4 0 30 0;
+#X connect 5 0 29 0;
+#X connect 6 0 35 0;
+#X connect 9 0 46 0;
+#X connect 10 0 9 0;
+#X connect 11 0 7 0;
+#X connect 17 0 9 0;
+#X connect 18 0 19 0;
+#X connect 19 0 45 0;
+#X connect 20 0 31 0;
+#X connect 21 0 31 0;
+#X connect 23 0 27 0;
+#X connect 24 0 26 0;
+#X connect 25 0 6 0;
+#X connect 31 0 19 1;
+#X connect 32 0 38 0;
+#X connect 33 0 34 0;
+#X connect 35 0 8 0;
+#X connect 35 0 8 1;
+#X connect 36 0 61 0;
+#X connect 38 0 53 0;
+#X connect 38 1 62 0;
+#X connect 40 0 39 0;
+#X connect 44 0 6 0;
+#X connect 47 0 48 0;
+#X connect 47 0 50 0;
+#X connect 48 0 1 0;
+#X connect 50 0 2 0;
+#X connect 51 0 52 0;
+#X connect 53 0 65 0;
+#X connect 56 0 57 0;
+#X connect 57 0 58 0;
+#X connect 61 0 35 1;
+#X connect 62 0 37 0;
+#X connect 63 0 41 0;
+#X connect 64 0 63 0;
+#X connect 64 0 40 0;
+#X connect 65 0 64 0;
+#X connect 65 1 33 0;
