@@ -3,13 +3,13 @@
 building:
 ---------
 Linux:
-Drop the phasevoc~ folder into Pd's extra folder and hit 
+Drop the phasevoc_tilde folder into Pd's extra folder and hit 
 
 > make
 
 in a terminal. You can also specify the include path (needed to find m_pd.h) by typing:
 
-> make LINUXINCLUDE=<full path to pd's src floder>
+> make LINUXINCLUDE=-I<full path to pd's src folder>
 
 where the full path is something like /home/dmedine/Software/pd-0.45-4/src 
 
@@ -26,4 +26,4 @@ then, it's the same as for linux. The makefile uses the same variable LINUXINCLU
 
 installing:
 -----------
-You will also need to tell Pd where the extern is. If it is in the extra folder, you should be fine, otherwise you will need to add the path to Pd's path list, or declare the path using the [declare] object with the -path flag and the path to phasevoc~.pd_linux.
+You will also need to tell Pd where the extern is. If it is in the extra folder, you should be fine just renaming the folder 'phasevoc_tilde' to 'phasevoc~' otherwise you will need to add the path to Pd's path list, or declare the path using the [declare] object with the -path flag and the path to phasevoc~.pd_linux.

@@ -1,3 +1,6 @@
+/* [phasevoc~] is a spectral analysis/resynthsis exern for Pure Data */
+/* copyright David Medine */
+/* released under the GPL */
 
 
 #include "m_pd.h"
