@@ -3,20 +3,16 @@
 building:
 ---------
 Linux:
-<<<<<<< HEAD
 Drop the phasevoc_tilde folder into Pd's extra folder and hit 
-=======
-Drop the phasevoc~ folder into Pd's extra folder and hit 
->>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
 
 > make
 
 in a terminal. You can also specify the include path (needed to find m_pd.h) by typing:
 
 <<<<<<< HEAD
-> make LINUXINCLUDE=-I<full path to pd's src folder>
+> make PDPATH=<full path to pd's src folder>
 =======
-> make LINUXINCLUDE=<full path to pd's src floder>
+> make LINUXINCLUDE=-I<full path to pd's src folder>
 >>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
 
 where the full path is something like /home/dmedine/Software/pd-0.45-4/src 
@@ -30,13 +26,12 @@ to:
 
 current: pd_darwin
 
+<<<<<<< HEAD
+then, it's the same as for linux. The makefile uses the same variable PDPATH for both linux and mac build options, so the same deal applies.
+=======
 then, it's the same as for linux. The makefile uses the same variable LINUXINCLUDE for both linux and mac build options, so the same deal applies.
+>>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
 
 installing:
 -----------
-<<<<<<< HEAD
 You will also need to tell Pd where the extern is. If it is in the extra folder, you should be fine just renaming the folder 'phasevoc_tilde' to 'phasevoc~' otherwise you will need to add the path to Pd's path list, or declare the path using the [declare] object with the -path flag and the path to phasevoc~.pd_linux.
-=======
-You will also need to tell Pd where the extern is. If it is in the extra folder, you should be fine, 
-otherwise you will need to add the path to Pd's path list, or declare the path using the [declare] object with the -path flag.
->>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
