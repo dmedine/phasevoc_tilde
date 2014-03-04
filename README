@@ -9,7 +9,11 @@ Drop the phasevoc_tilde folder into Pd's extra folder and hit
 
 in a terminal. You can also specify the include path (needed to find m_pd.h) by typing:
 
+<<<<<<< HEAD
 > make PDPATH=<full path to pd's src folder>
+=======
+> make LINUXINCLUDE=-I<full path to pd's src folder>
+>>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
 
 where the full path is something like /home/dmedine/Software/pd-0.45-4/src 
 
@@ -22,7 +26,11 @@ to:
 
 current: pd_darwin
 
+<<<<<<< HEAD
 then, it's the same as for linux. The makefile uses the same variable PDPATH for both linux and mac build options, so the same deal applies.
+=======
+then, it's the same as for linux. The makefile uses the same variable LINUXINCLUDE for both linux and mac build options, so the same deal applies.
+>>>>>>> 62edaa1b71889e3eff988a55c41f1c2028e15393
 
 installing:
 -----------
